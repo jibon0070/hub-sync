@@ -1,0 +1,11 @@
+*.env*
+!.env.example
+!.env.local
+/db/*
+/backend/*
+!/backend/Dockerfile
+!/backend/wp-content/
+/backend/wp-content/*
+!/backend/wp-content/themes/
+/backend/wp-content/themes/*
+!/backend/wp-content/themes/disabled/

@@ -1,0 +1,54 @@
+services:
+  web:
+    user: ${RUNNING_USER}
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: frontend
+    container_name: frontend
+    volumes:
+      - node_modules:/app/node_modules
+      - ./frontend:/app
+    ports:
+      - 8080:5173
+    depends_on:
+      - api
+      - reclaim_ownership
+  api:
+    user: ${RUNNING_USER}
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: wordpress
+    container_name: wordpress
+    environment:
+      FE_URL: ${FE_URL}
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - 8000:80
+  db:
+    user: ${RUNNING_USER}
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+    volumes:
+      - ./db:/var/lib/mysql
+    depends_on:
+      - reclaim_ownership
+
+  reclaim_ownership:
+    user: root
+    image: busybox
+    volumes:
+      - node_modules:/app/node_modules
+      - ./db:/app/db
+    command: chmod -R 777 /app/node_modules /app/db
+
+volumes:
+  node_modules:
+    name: node_modules
