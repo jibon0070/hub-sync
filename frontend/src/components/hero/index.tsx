@@ -3,6 +3,7 @@ import arrow from "../../assets/arrow.png";
 import HeroImage from "./hero-image";
 import misc from "../../assets/misc.png";
 import Header from "./header";
+import Brands from "./brands";
 
 export default function Hero() {
   return (
@@ -10,7 +11,7 @@ export default function Hero() {
       <Header />
       <img src={blur} alt="blur" className="absolute right-0 top-0 h-full" />
       <div className="container mx-auto py-20 z-20">
-        <div className="flex-1 flex items-center gap-18">
+        <div className="flex-1 flex items-center gap-18 space-y-12">
           <div className="flex-2 space-y-12 relative">
             <img src={misc} alt="misc" className="absolute top-0 right-0" />
             <img
@@ -40,6 +41,7 @@ export default function Hero() {
           </div>
           <HeroImage className="flex-1" />
         </div>
+        <Brands />
       </div>
     </section>
   );

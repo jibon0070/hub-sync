@@ -8,11 +8,11 @@ RUN npm install -g corepack@latest --force && \
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,target=/pnpm/store \
   pnpm fetch --frozen-lockfile && \
   pnpm install --frozen-lockfile --offline
 
 COPY . .
 EXPOSE 8080
-CMD ["npm", "run", "dev"]
+CMD ["pnpm", "dev"]
